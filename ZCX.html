@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ZCX Player Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+            width: 90%;
+            max-width: 1200px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        select, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Select Players</h2>
+    <div class="grid-container">
+        <select id="player1"></select>
+        <select id="player2"></select>
+        <select id="player3"></select>
+        <select id="player4"></select>
+        <select id="player5"></select>
+        <select id="player6"></select>
+    </div>
+
+    <button onclick="generateTeams()">Generate Teams</button>
+
+    <h2>Teams</h2>
+    <p id="output"></p>
+</div>
+
+<script>
+    const players = [
+        {"PLAYER_ID": 1000, "PLAYER_NAME": "3lusion", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1001, "PLAYER_NAME": "69Charger", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1002, "PLAYER_NAME": "Asias", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1003, "PLAYER_NAME": "ATETANKA", "PLAYER_RANK": "A+", "PLAYER_VALUE": 4},
+        {"PLAYER_ID": 1004, "PLAYER_NAME": "BabyWhiteWolf", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1005, "PLAYER_NAME": "Brat", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1006, "PLAYER_NAME": "CasiQ", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1007, "PLAYER_NAME": "Cho2", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1008, "PLAYER_NAME": "ChopsticKs[MB]", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1009, "PLAYER_NAME": "ClariceStarling", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1010, "PLAYER_NAME": "Demure[NaS]", "PLAYER_RANK": "S+", "PLAYER_VALUE": 5},
+        {"PLAYER_ID": 1011, "PLAYER_NAME": "DiscoveredCheck", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1012, "PLAYER_NAME": "Doktor", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1013, "PLAYER_NAME": "DuffMan[MB]", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1014, "PLAYER_NAME": "Einen", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1015, "PLAYER_NAME": "EndlessLove", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1016, "PLAYER_NAME": "Ewie", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1017, "PLAYER_NAME": "ExpertGamer", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1018, "PLAYER_NAME": "FalcoNraideN", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1019, "PLAYER_NAME": "FreddyKruegerXX", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1020, "PLAYER_NAME": "Game_Geak", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1021, "PLAYER_NAME": "GN[FDU]", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1022, "PLAYER_NAME": "Gucci[MB]", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1023, "PLAYER_NAME": "HugeOrgan[MB]", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1024, "PLAYER_NAME": "HybridTheory", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1025, "PLAYER_NAME": "Infinity[FDU]", "PLAYER_RANK": "A+", "PLAYER_VALUE": 4},
+        {"PLAYER_ID": 1026, "PLAYER_NAME": "iTommy", "PLAYER_RANK": "A+", "PLAYER_VALUE": 4},
+        {"PLAYER_ID": 1027, "PLAYER_NAME": "johnNYCage", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1028, "PLAYER_NAME": "KaHiZeR", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1029, "PLAYER_NAME": "KuRuPteD[M2D]", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1030, "PLAYER_NAME": "Kyte[MB]", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1031, "PLAYER_NAME": "La.911!", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1032, "PLAYER_NAME": "La.H1pp13", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1033, "PLAYER_NAME": "Law[BF]", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1034, "PLAYER_NAME": "LoH]Kyu", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1035, "PLAYER_NAME": "Looose", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1036, "PLAYER_NAME": "MeterA", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1037, "PLAYER_NAME": "MistaSmiles", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1038, "PLAYER_NAME": "MysterY]tO[", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1039, "PLAYER_NAME": "OutOfYourLeague", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1040, "PLAYER_NAME": "Pa1N[MB]", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1041, "PLAYER_NAME": "Pataykana", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1042, "PLAYER_NAME": "Pr1me[FDU]", "PLAYER_RANK": "S+", "PLAYER_VALUE": 5},
+        {"PLAYER_ID": 1043, "PLAYER_NAME": "ProblemHarry", "PLAYER_RANK": "S+", "PLAYER_VALUE": 5},
+        {"PLAYER_ID": 1044, "PLAYER_NAME": "Pythagoras", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1045, "PLAYER_NAME": "Rett4848", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1046, "PLAYER_NAME": "RYUIII", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1047, "PLAYER_NAME": "SeniC", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1048, "PLAYER_NAME": "Silly.KoreaN", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1049, "PLAYER_NAME": "SlapThatAss", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1050, "PLAYER_NAME": "Stones5o5", "PLAYER_RANK": "A+", "PLAYER_VALUE": 4},
+        {"PLAYER_ID": 1051, "PLAYER_NAME": "SurYa[MB]", "PLAYER_RANK": "S+", "PLAYER_VALUE": 5},
+        {"PLAYER_ID": 1052, "PLAYER_NAME": "TakNoPrisonrs", "PLAYER_RANK": "A+", "PLAYER_VALUE": 4},
+        {"PLAYER_ID": 1053, "PLAYER_NAME": "Tapsilog", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1054, "PLAYER_NAME": "Technics1", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3},
+        {"PLAYER_ID": 1055, "PLAYER_NAME": "Tiantianri", "PLAYER_RANK": "C+", "PLAYER_VALUE": 2},
+        {"PLAYER_ID": 1056, "PLAYER_NAME": "Trieu", "PLAYER_RANK": "D+", "PLAYER_VALUE": 1},
+        {"PLAYER_ID": 1057, "PLAYER_NAME": "TrippY", "PLAYER_RANK": "S+", "PLAYER_VALUE": 5},
+        {"PLAYER_ID": 1058, "PLAYER_NAME": "Woots", "PLAYER_RANK": "S+", "PLAYER_VALUE": 5},
+        {"PLAYER_ID": 1059, "PLAYER_NAME": "XenoZerg", "PLAYER_RANK": "B+", "PLAYER_VALUE": 3}
+        // Add more players as necessary
+    ];
+
+    // Populate dropdowns
+    function populateDropdowns() {
+        const dropdowns = [
+            document.getElementById('player1'),
+            document.getElementById('player2'),
+            document.getElementById('player3'),
+            document.getElementById('player4'),
+            document.getElementById('player5'),
+            document.getElementById('player6')
+        ];
+        dropdowns.forEach(dropdown => {
+            players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player.PLAYER_NAME;
+                option.text = player.PLAYER_NAME;
+                dropdown.add(option);
+            });
+        });
+    }
+
+    // Generate teams based on selected players
+    function generateTeams() {
+        const selectedPlayers = [
+            document.getElementById('player1').value,
+            document.getElementById('player2').value,
+            document.getElementById('player3').value,
+            document.getElementById('player4').value,
+            document.getElementById('player5').value,
+            document.getElementById('player6').value
+        ];
+
+        const selectedPlayerObjects = selectedPlayers.map(name => players.find(player => player.PLAYER_NAME === name));
+        selectedPlayerObjects.sort((a, b) => b.PLAYER_VALUE - a.PLAYER_VALUE); // Sort players by value descending
+
+        const team1 = [];
+        const team2 = [];
+        let team1Value = 0;
+        let team2Value = 0;
+
+        selectedPlayerObjects.forEach(player => {
+            if (team1Value <= team2Value) {
+                team1.push(player);
+                team1Value += player.PLAYER_VALUE;
+            } else {
+                team2.push(player);
+                team2Value += player.PLAYER_VALUE;
+            }
+        });
+
+        const now = new Date();
+        const time = now.toLocaleTimeString();
+
+        const output = `
+            <p>Team 1: ${team1.map(player => player.PLAYER_NAME).join(', ')} (Total Value: ${team1Value})</p>
+            <p>Team 2: ${team2.map(player => player.PLAYER_NAME).join(', ')} (Total Value: ${team2Value})</p>
+            <p>Generated at: ${time}</p>
+        `;
+        document.getElementById('output').innerHTML = output;
+    }
+
+    // Initialize dropdowns on page load
+    window.onload = populateDropdowns;
+</script>
+<div class="container">
+    <h2>ZCX Player Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>PLAYER_ID</th>
+                <th>PLAYER_NAME</th>
+                <th>PLAYER_RANK</th>
+                <th>PLAYER_VALUE</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Player rows -->
+            <tr><td>1000</td><td>3lusion </td><td>D+</td><td>1</td></tr>
+    <tr><td>1001</td><td>69Charger </td><td>C+</td><td>2</td></tr>
+    <tr><td>1002</td><td>Asias </td><td>B+</td><td>3</td></tr>
+    <tr><td>1003</td><td>ATETANKA </td><td>A+</td><td>4</td></tr>
+    <tr><td>1004</td><td>BabyWhiteWolf </td><td>B+</td><td>3</td></tr>
+    <tr><td>1005</td><td>Brat </td><td>C+</td><td>2</td></tr>
+    <tr><td>1006</td><td>CasiQ </td><td>D+</td><td>1</td></tr>
+    <tr><td>1007</td><td>Cho2 </td><td>D+</td><td>1</td></tr>
+    <tr><td>1008</td><td>ChopsticKs[MB] </td><td>C+</td><td>2</td></tr>
+    <tr><td>1009</td><td>ClariceStarling </td><td>C+</td><td>2</td></tr>
+    <tr><td>1010</td><td>Demure[NaS] </td><td>S+</td><td>5</td></tr>
+    <tr><td>1011</td><td>DiscoveredCheck </td><td>C+</td><td>2</td></tr>
+    <tr><td>1012</td><td>Doktor </td><td>D+</td><td>1</td></tr>
+    <tr><td>1013</td><td>DuffMan[MB] </td><td>D+</td><td>1</td></tr>
+    <tr><td>1014</td><td>Einen </td><td>C+</td><td>2</td></tr>
+    <tr><td>1015</td><td>EndlessLove </td><td>D+</td><td>1</td></tr>
+    <tr><td>1016</td><td>Ewie </td><td>C+</td><td>2</td></tr>
+    <tr><td>1017</td><td>ExpertGamer </td><td>C+</td><td>2</td></tr>
+    <tr><td>1018</td><td>FalcoNraideN </td><td>C+</td><td>2</td></tr>
+    <tr><td>1019</td><td>FreddyKruegerXX </td><td>D+</td><td>1</td></tr>
+    <tr><td>1020</td><td>Game_Geak </td><td>B+</td><td>3</td></tr>
+    <tr><td>1021</td><td>GN[FDU] </td><td>D+</td><td>1</td></tr>
+    <tr><td>1022</td><td>Gucci[MB] </td><td>D+</td><td>1</td></tr>
+    <tr><td>1023</td><td>HugeOrgan[MB] </td><td>D+</td><td>1</td></tr>
+    <tr><td>1024</td><td>HybridTheory </td><td>D+</td><td>1</td></tr>
+    <tr><td>1025</td><td>Infinity[FDU] </td><td>A+</td><td>4</td></tr>
+    <tr><td>1026</td><td>iTommy </td><td>A+</td><td>4</td></tr>
+    <tr><td>1027</td><td>johnNYCage </td><td>C+</td><td>2</td></tr>
+    <tr><td>1028</td><td>KaHiZeR </td><td>D+</td><td>1</td></tr>
+    <tr><td>1029</td><td>KuRuPteD[M2D] </td><td>C+</td><td>2</td></tr>
+    <tr><td>1030</td><td>Kyte[MB] </td><td>D+</td><td>1</td></tr>
+    <tr><td>1031</td><td>La.911! </td><td>B+</td><td>3</td></tr>
+    <tr><td>1032</td><td>La.H1pp13 </td><td>B+</td><td>3</td></tr>
+    <tr><td>1033</td><td>Law[BF] </td><td>C+</td><td>2</td></tr>
+    <tr><td>1034</td><td>LoH]Kyu </td><td>B+</td><td>3</td></tr>
+    <tr><td>1035</td><td>Looose </td><td>B+</td><td>3</td></tr>
+    <tr><td>1036</td><td>MeterA </td><td>C+</td><td>2</td></tr>
+    <tr><td>1037</td><td>MistaSmiles</td><td>B+</td><td>3</td></tr>
+    <tr><td>1038</td><td>MysterY]tO[ </td><td>B+</td><td>3</td></tr>
+    <tr><td>1039</td><td>OutOfYourLeague </td><td>C+</td><td>2</td></tr>
+    <tr><td>1040</td><td>Pa1N[MB] </td><td>C+</td><td>2</td></tr>
+    <tr><td>1041</td><td>Pataykana </td><td>B+</td><td>3</td></tr>
+    <tr><td>1042</td><td>Pr1me[FDU] </td><td>S+</td><td>5</td></tr>
+    <tr><td>1043</td><td>ProblemHarry </td><td>S+</td><td>5</td></tr>
+    <tr><td>1044</td><td>Pythagoras </td><td>D+</td><td>1</td></tr>
+    <tr><td>1045</td><td>Rett4848 </td><td>B+</td><td>3</td></tr>
+    <tr><td>1046</td><td>RYUIII </td><td>D+</td><td>1</td></tr>
+    <tr><td>1047</td><td>SeniC </td><td>C+</td><td>2</td></tr>
+    <tr><td>1048</td><td>Silly.KoreaN </td><td>B+</td><td>3</td></tr>
+    <tr><td>1049</td><td>SlapThatAss </td><td>B+</td><td>3</td></tr>
+    <tr><td>1050</td><td>Stones5o5 </td><td>A+</td><td>4</td></tr>
+    <tr><td>1051</td><td>SurYa[MB] </td><td>S+</td><td>5</td></tr>
+    <tr><td>1052</td><td>TakNoPrisonrs </td><td>A+</td><td>4</td></tr>
+    <tr><td>1053</td><td>Tapsilog </td><td>D+</td><td>1</td></tr>
+    <tr><td>1054</td><td>Technics1 </td><td>B+</td><td>3</td></tr>
+    <tr><td>1055</td><td>Tiantianri </td><td>C+</td><td>2</td></tr>
+    <tr><td>1056</td><td>Trieu </td><td>D+</td><td>1</td></tr>
+    <tr><td>1057</td><td>TrippY </td><td>S+</td><td>5</td></tr>
+    <tr><td>1058</td><td>Woots </td><td>S+</td><td>5</td></tr>
+    <tr><td>1059</td><td>XenoZerg </td><td>B+</td><td>3</td></tr>
+            <!-- Add more rows as necessary -->
+        </tbody>
+    </table>
+</body>
+</html>
